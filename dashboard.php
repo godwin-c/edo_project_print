@@ -572,7 +572,7 @@
             });
             
             function fillUpTheTable(data){
-              
+                dataField = '';
                 for (var i = 0; i < data.length; i++) {
                 
                     var serialno = i + 1;
@@ -581,354 +581,166 @@
                    
                     var table_row = document.createElement("tr");
 
-                    var cell1 = table_row.insertCell(0);
-                    var sntd = document.createElement("td");
-                    sntd.setAttribute('id', 'sn');
-                    sntd.innerHTML  =  serialno;
-                    cell1.appendChild(sntd);
-
-                    var cell2 = table_row.insertCell(1);
-                    var nametd = document.createElement("td");
-                    nametd.setAttribute('id', 'fname');
-                    nametd.innerHTML  = data[i].nameonlicence;
-                    cell2.appendChild(nametd);
-
-                    var cell3 = table_row.insertCell(2);
-                    var licencetd = document.createElement("td");
-                    licencetd.innerHTML  = "<div class='badge badge-success' name='licenceno'>" + data[i].licenceno + "</div>";
-                    cell3.appendChild(licencetd);
-
-                    var cell4 = table_row.insertCell(3);
-                    var jnumbertd = document.createElement("td");
-
-                    var jnumdiv = document.createElement("div");
-                    jnumdiv.setAttribute('class', 'badge badge-primary');
-                    jnumdiv.setAttribute('name', 'jnumber');
-                    
-
-                    var jnuma = document.createElement("a");
-                    jnuma.setAttribute("href", "#");
-                    jnuma.setAttribute("id", "inline-firstname");
-                    jnuma.setAttribute("data-type", "text");
-                    jnuma.setAttribute("data-pk", "1");
-                    jnuma.setAttribute("data-placement", "right");
-                    jnuma.setAttribute("data-placeholder", "Required");
-                    jnuma.setAttribute("data-title", "Enter Jacket Number");
-
-                    jnumdiv.appendChild(jnuma);
-                    jnumbertd.appendChild(jnumdiv);
-                    cell4.appendChild(jnumbertd);
-                   
-
-                    var cell5 = table_row.insertCell(4);
-                    var phonetd = document.createElement("td");
-                    phonetd.id = "phone_number";
-                    phonetd.innerHTML  = data[i].riderstelephoneno;
-                    cell5.appendChild(phonetd);
-
-
-                    var cell6 = table_row.insertCell(5);
-                    var gendertd = document.createElement("td");
-                    gendertd.id = "gender";
-                    gendertd.innerHTML  = data[i].ridersgender;
-                    cell6.appendChild(gendertd);
-
-                    var cell7 = table_row.insertCell(6);
-                    var bgrouptd = document.createElement("td");
-                    bgrouptd.id = "bgroup";
-                    bgrouptd.innerHTML  = data[i].ridersgender;
-                    cell7.appendChild(bgrouptd);
-
-                    var cell8 = table_row.insertCell(7);
-                    var kinnumbertd = document.createElement("td");
-                    kinnumbertd.id = "kinnumber";
-                    kinnumbertd.innerHTML  = data[i].next_of_kin;
-                    cell8.appendChild(kinnumbertd);
-
-                    var cell9 = table_row.insertCell(8);
-                    var ridersaddresstd = document.createElement("td");
-                    ridersaddresstd.id = "ridersaddress";
-                    ridersaddresstd.innerHTML  = data[i].ridersaddress;
-                    cell9.appendChild(ridersaddresstd);
-
-                    var cell10 = table_row.insertCell(9);
-                    var printareatd = document.createElement("td");
-                    printareatd.id = "print_area";
-
-                    // const date = new Date('July 22, 2018 07:22:13')
-
-                    // var now = new Date();d/m/Y
-                    
 
                     var dateIssued = getDate(data[i].issuedate); //dateFormat(data[i].issuedate, "dd/mm/yyyy");
                     var dateExpired = getDate(data[i].expirydate); //dateFormat(data[i].expirydate, "dd/mm/yyyy");
 
-                    // <?php echo  "<img style='display: block; margin-left: auto; margin-right: auto;' src='barcode.php?codetype=code39&size=50&text=data[i].licenceno&print=false' widthxx='278px' alt=''/>" ?>"
+                    dataField += '<tr>'
+                    +'<td id="sn">'+i+'</td>'
+                    +'<td id="fname">'+data[i].nameonlicence+'</td>'
+                    +'<td><div class="badge badge-success" name="licenceno">'+data[i].licenceno +'</div></td>'
+                    +'<td><div class="badge badge-primary inline-jacket-number" name="jnumber"><a href="#" id="inline-firstname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter Jacket Number">Empty</a></div></td>'
+                    +'<td name="phone_number">'+data[i].riderstelephoneno+'</td>'
+                    +'<td name="gender">'+data[i].ridersgender+'</td>'
+                    +'<td name="bgroup">'+data[i].ridersgender+'</td>'
+                    +'<td name="kinnumber">'+data[i].next_of_kin+'</td>'
+                    +'<td name="address">'+data[i].ridersaddress+'</td>'
+                    +'<td>'
+                    +'<div data-toggle="modal" data-target=".bd-example-modal-lg" class="badge badge-warning">Front Card</div>'
+                    +'<div data-toggle="modal" data-target=".bd-example-modal-lg-back-card" class="badge badge-danger">Back Card</div>'
+                    +'<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">'
+                    +'<div class="modal-dialog modal-lg modal-dialog-centered" role="document">'
+                    +'<div class="modal-content" style="height: 650px; position: absolute; top: 0; left: 0; bottom: 0; right: 0;">'
+                    +'<div class="modal-header">'
+                    +'<h5 class="modal-title" id="exampleModalCenterTitle">Rider\'s Permit Front Card - Preview</h5>'
+                    +'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+                    +'<span aria-hidden="true">&times;</span>'
+                    +'</button>'
+                    +'</div>'
+                    +'<div class="modal-body" stylexx="height: 300px;">'
+                    +'<div class="column is-6 is-offset print-container" id="frontcard" style="overflow: auto; heightxx: 442px; height: 100%; width: 100%; xxmax-width: 648px; page-break-before: avoid; margin: 0; padding: 0;">'
+                    +'<div class="navigation-tabs outlined-pills rounded-pills animated-tabs">'
+                    +'<div id="tab-m1" class="navtab-content is-active">'
+                    +'<div class="columns is-vcentered" style="margin-bottomxx: .75rem; height: 300px;">'
+                    +'<div class="column col-12 xxis-12 xxis-offset">'
+                    +'<div class="flex-card simple-shadow" style="heightxx: 424px; widthxx: 548px; border-radius: 1.1875rem;  background-image: url(images/licensepermit-bg.jpg); background-size: cover; background-repeat: no-repeat;">'
+                    +'<div class="card-body" style="padding: 5px 15px;">'
+                                                                        
+                    +'<div class="content container-fluid">'
+                    +'<div class="row">'
+                    +'<img src="images/licensecardheader.png" width="100%" alt="">'
+                    +'</div>'
+                    +'<div class="row mt-4xx" style="background-color: #008c35; margin: 12px 0px 12px 0px">'
+                    +'<div class="col-md-6"><div class="field mt-4x" style="font-size: 100%;"><label for=""><b style="colorxx: #ee234e; color: #ffffff; font-size: 150%;">ISSUED DATE</b> <span style="font-size: 180%; color: black;"><b>' + dateIssued + '</b></span></label></div>'
+                    +'</div>'
+                    +'<div class="col-md-6 ml-autoxx"><div class="field mt-4x"><label for="" styleXX="margin-left: 140px;"><b style="colorxx: #ee234e; color: #ffffff; font-size: 150%;">EXPIRY DATE</b> <span style="font-size: 180%; color: black;"><b>'+dateExpired+'</b></span></label></div></div>'
+                    +'</div>'
+                    +'<div class="row">'
+                    +'<div class="col-md-4">'
+                    +'<div class="field mt-4">'
+                    +'<img src="images/passport.png" width="100%" max-width="250px" alt="">'
+                    +'</div>'
+                    +'</div>'
+                    +'<div class="col-md-4 ml-autoxx" style="width: 80%">'
+                    +'<div class="field mt-4">'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">RPNO</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].rin +'</b></span></label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">NAME</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].nameonlicence +'</b></span> </label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">D.O.B</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].ridersdob +'</b></span></label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">PHONE NO</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].riderstelephoneno +'</b></span></label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">ADDRESS</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].ridersaddress +'</b></span></label>'
+                    +'</div>'
+                    +'</div>'
+                    +'<div class="col-md-4 ml-autoxx" style="padding-left: 8%; width: 80%; float: right; positionxx: fixed; right: 0;">'
+                    +'<div class="field mt-4">'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">J.NO</b> <span style="font-size: 150%; color: black;"><b>EDO-RP-00001</b></span></label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">RIN</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].rin +'</b></span></label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">SEX</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].ridersgender +'</b></span></label>'
+                    +'<br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 130%;">BLOOD GROUP</b> <span style="font-size: 150%; color: black;"><b>'+ data[i].bloodgroup +'</b></span> </label>'
+                    +'<br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/signature.png" width="66px" alt=""><br>'
+                    +'<label for=""><b style="color: #ee234e; font-size: 17px;">HOLDER\'S SIGNATURE</b></label>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'<div class="row">'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'<div class="modal-footer">'
+                    +'<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+                    +'<button onclick="printCard(\'frontcard\', \'Moshood_front\');" type="button" class="btn btn-danger">Print</button>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
+                        
+                    +'<div class="modal fade bd-example-modal-lg-back-card" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">'
+                    +'<div class="modal-dialog modal-lg modal-dialog-centered" role="document">'
+                    +'<div class="modal-content" style="height: 650px; position: absolute; top: 0; left: 0; bottom: 0; right: 0;">'
+                    +'<div class="modal-header">'
+                    +'<h5 class="modal-title" id="exampleModalCenterTitle">Rider\'s Permit Front Card - Preview</h5>'
+                    +'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+                    +'<span aria-hidden="true">&times;</span>'
+                    +'</button></div>'
+                    +'<div class="modal-body" style="xxheight: 300px; color: black;">'
+                                        
+                    +'<div class="column is-6 is-offset print-container" id="backcard" style="overflow: auto; height: 100%; width: 100%; xxmax-width: 648px; page-break-before: avoid; margin: 0; padding: 0;">'
+                    +'<div class="navigation-tabs outlined-pills rounded-pills animated-tabs">'
+                    +'<div id="tab-m1" class="navtab-content is-active">'
+                    +'<div class="columns is-vcentered" style="margin-bottomxx: .75rem; height: 300px;">'
+                    +'<div class="column col-12 xxis-12 xxis-offset">'
+                    +'<div class="flex-card simple-shadow" style="heightxx: 424px; widthxx: 548px; border-radius: 1.1875rem;  background-image: url(images/licensepermit-bg.jpg); background-size: cover; background-repeat: no-repeat;">'
+                    +'<div class="card-body" style="padding: 5px 15px;">'
+                    +'<div class="content container-fluid">'
+                    +'<div class="row">'
+                    +'<img src="images/licensecardheaderback.png" width="100%" alt="">'
+                    +'</div>'
+                    +'<div class="row">'
+                    +'<div class="col-md-12">'
+                    +'<div class="field mt-4">'
+                    +'<p style="font-size: 13px; text-align: center;"><b>FOR MOTORCYCLE AND TRICYCLE <br> THE BEARER OF THIS CARD IS HEREBY AUTHORIZED TO OPERATE AS A RIDER IN EDO STATE</b></p>'
+                    +'<?php echo "<img style=\'display: block; margin-left: auto; margin-right: auto;\' src=\'barcode.php?codetype=code39&size=50&text=001200200002&print=false\' width=\'278px\' alt=\'\'/>"; ?>'
+                                                                                    
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
 
-                    var imgBarCode = document.createElement("img");
-                    imgBarCode.setAttribute("style", "display: block; margin-left: auto; margin-right: auto;");
-                    imgBarCode.src = "barcode.php?codetype=code39&size=50&text=" + data[i].licenceno + "&print=false"
-                    
-                    printareatd.innerHTML  = 
-						 "<div data-toggle='modal' data-target='.bd-example-modal-lg' class='badge badge-warning'> Front Card </div>"
-                        + "<div data-toggle='modal' data-target='.bd-example-modal-lg-back-card' class='badge badge-danger'> Back Card </div>"
-                               
-                        + "<div class='modal fade bd-example-modal-lg' id='exampleModalCenter' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>"
-                        + "<div class='modal-dialog modal-lg modal-dialog-centered' role='document'>"
-                        + "<div class='modal-content' style='height: 650px; position: absolute; top: 0; left: 0; bottom: 0; right: 0;'>"
-                        + "<div class='modal-header'>"
-                        + "<h5 class='modal-title' id='exampleModalCenterTitle'> Rider's Permit Front Card - Preview </h5>"
-                        + "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>"
-                            + "<span aria-hidden='true'>&times;</span>"
-                        + "</button>"
-                        + "</div>"
-                            + "<div class='modal-body' stylexx='height: 300px;'>"
-                               
-                                + "<div class='column is-6 is-offset print-container' id='frontcard' style='overflow: auto; heightxx: 442px; height: 100%; width: 100%; xxmax-width: 648px; page-break-before: avoid; margin: 0; padding: 0;'>"
-                                + "<div class='navigation-tabs outlined-pills rounded-pills animated-tabs'>"
-                                + "<div id='tab-m1' class='navtab-content is-active'>"
-                                    
-                                + "<div class='columns is-vcentered' style='margin-bottomxx: .75rem; height: 300px;'>"
-                                + "<div class='column col-12 xxis-12 xxis-offset'>"
-                                + "<div class='flex-card simple-shadow' style='heightxx: 424px; widthxx: 548px; border-radius: 1.1875rem;  background-image: url(images/licensepermit-bg.jpg); background-size: cover; background-repeat: no-repeat;'>"
-                                + "<div class='card-body' style='padding: 5px 15px;'>"
-                                                                                                    
-                                + "<div class='content container-fluid'>"
-                                + "<div class='row'>"
-                                + "<img src='images/licensecardheader.png' width='100%' alt=''>"
-                                + "</div>"
-                                + "<div class='row mt-4xx' style='background-color: #008c35; margin: 12px 0px 12px 0px'>"
-                                + "<div class='col-md-6'>"
-                                + "<div class='field mt-4x' style='font-size: 100%;'>"
-                                + "<label for=''><b style='colorxx: #ee234e; color: #ffffff; font-size: 150%;'>ISSUED DATE </b> <span style='font-size: 180%; color: black;'><b>" + dateIssued + "</b></span></label>"
-                                + "</div>"
-                                + "</div>"
-                                + "<div class='col-md-6 ml-autoxx'>"
-                                + "<div class='field mt-4x'>"
-                                + "<label for='' styleXX='margin-left: 140px;'><b style='colorxx: #ee234e; color: #ffffff; font-size: 150%;'> EXPIRY DATE </b> <span style='font-size: 180%; color: black;'><b>" + dateExpired + "</b></span></label>"
-                                + "</div>"
-                                + "</div>"
-                                + "</div>"
-                                + "<div class='row'>"
-                                + "<div class='col-md-4'>"
-                                + "<div class='field mt-4'>"
-                                + "<img src='images/passport.png' width='100%' max-width='250px' alt=''>"
-                                + "</div>"
-                                + "</div>"
-                                + "<div class='col-md-4 ml-autoxx' style='width: 80%'>"
-                                + "<div class='field mt-4'>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>RPNO</b> <span style='font-size: 150%; color: black;'><b>" + data[i].rin + "</b></span></label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>NAME</b> <span style='font-size: 150%; color: black;'><b>" + data[i].nameonlicence + "</b></span> </label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>D.O.B</b> <span style='font-size: 150%; color: black;'><b>" + data[i].ridersdob + "</b></span></label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>PHONE NO</b> <span style='font-size: 150%; color: black;'><b>" + data[i].riderstelephoneno + "</b></span></label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>ADDRESS</b> <span style='font-size: 150%; color: black;'><b>" + data[i].ridersaddress + "</b></span></label>"
-                                + "</div>"
-                                + "</div>"
-                                + "<div class='col-md-4 ml-autoxx' style='padding-left: 8%; width: 80%; float: right; positionxx: fixed; right: 0;'>"
-                                + "<div class='field mt-4'>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>J.NO</b> <span style='font-size: 150%; color: black;'><b> EDO-RP-00001 </b></span></label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>RIN</b> <span style='font-size: 150%; color: black;'><b>" + data[i].rin + "</b></span></label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>SEX</b> <span style='font-size: 150%; color: black;'><b>" + data[i].ridersgender + "</b></span></label>"
-                                + "<br>"
-                                + "<label for=''><b style='color: #ee234e; font-size: 130%;'>BLOOD GROUP</b> <span style='font-size: 150%; color: black;'><b>" + data[i].bloodgroup + "+</b></span> </label>"
-                                + "<br>"
-                                + "<br>"
-                                + "<br>"
-                                + "<br>"
-                                + "<br>"
-                                + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='images/signature.png' width='66px' alt=''>"
-                                                                                                                    + "<br>"
-                                                                                                                    + "<label for=''><b style='color: #ee234e; font-size: 17px;'>HOLDER'S SIGNATURE</b></label>"
-                                                                                                                + "</div>"
-                                                                                                            + "</div>"
-                                                                                                        + "</div>"
-                                                                                                        + "<div class='row'>"
-                                                                                                        + "</div>"
-                                                                                                    + "</div>"
-                                                                                                + "</div>"
-                                                                                            + "</div>"
-                                                                                        + "</div>"
-                                                                                    + "</div>"
-                                                                               
-                                                                            + "</div>"
-                                                                        + "</div>"
-                                                                    + "</div>"
-                                                                    + "<!-- END LICENSE CARD FRONT -->"
-                                                                + "</div>"
-                                                                + "<div class='modal-footer'>"
-                                                                    + "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>"
+                    +'<div class="row" style="margin-top: 56px; margin-bottom: 10px; xxposition: fixed; xxbottom: 0px; wxxidth: 100%;">'
+                    +'<div class="col-md-8">'
+                    +'<div class="field mt-4" style="font-size: 13px;">'
+                    +'<span><b>THIS CARD CANNOT BE TRANSFERRED, IF FOUND PLEASE RETURN TO</b></span><br>'
+                    +'<span><b>EDO STATE MINISTRY OF TRANSPORT</b></span>'
+                    +'<span><b>OR THE NEAREST POLICE STATION</b></span>'
+                    +'<br>'
+                    +'<span><b>MISUSE OF THIS PERMIT IS A VIOLATION OF EDO STATE GOVERNMENT <br> REGUALTIONS.</b></span>'
+                    +'<br>'
+                    +'<span><b>REPLACEMENT OF THIS LICENSE IS SUBJECT TO AN ADMINISTRATIVE FEE</b></span>'
+                    +'</div>'
+                    +'</div>'
+                    +'</div>'
 
-                                                                    + "<button onclick='printCard('frontcard', 'Moshood_front');' type='button' class='btn btn-danger'>Print</button>"
-                                                                + "</div>"
-                                                            + "</div>"
-                                                        + "</div>"
-                                                    + "</div>"
-                                                    + "<!-- End Front Card Modal -->"
-                                                    
-                                                    + "<!-- Start Back Card Modal -->"
-                                                    + "<div class='modal fade bd-example-modal-lg-back-card' id='exampleModalCenter' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>"
-                                                        + "<div class='modal-dialog modal-lg modal-dialog-centered' role='document'>"
-                                                            + "<div class='modal-content' style='height: 650px; position: absolute; top: 0; left: 0; bottom: 0; right: 0;'>"
-                                                                + "<div class='modal-header'>"
-                                                                + "<h5 class='modal-title' id='exampleModalCenterTitle'>Rider's Permit Front Card - Preview</h5>"
-                                                                + "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>"
-                                                                    + "<span aria-hidden='true'>&times;</span>"
-                                                                + "</button>"
-                                                                + "</div>"
-                                                                + "<div class='modal-body' style='xxheight: 300px; color: black;'>"
-                                                                    
-                                                                    + "<!-- START LICENSE CARD BACK -->"
-                                                                    + "<div class='column is-6 is-offset print-container' id='backcard' style='overflow: auto; height: 100%; width: 100%; xxmax-width: 648px; page-break-before: avoid; margin: 0; padding: 0;'>"
-                                                                        + "<div class='navigation-tabs outlined-pills rounded-pills animated-tabs'>"
-                                                                            + "<div id='tab-m1' class='navtab-content is-active'>"
-                                                                                + "<div class='columns is-vcentered' style='margin-bottomxx: .75rem; height: 300px;'>"
-                                                                                    + "<div class='column col-12 xxis-12 xxis-offset'>"
-                                                                                        + "<div class='flex-card simple-shadow' style='heightxx: 424px; widthxx: 548px; border-radius: 1.1875rem;  background-image: url(images/licensepermit-bg.jpg); background-size: cover; background-repeat: no-repeat;'>"
-                                                                                            + "<div class='card-body' style='padding: 5px 15px;'>"
-                                                                                                + "<div class='content container-fluid'>"
-                                                                                                    + "<div class='row'>"
-                                                                                                        + "<img src='images/licensecardheaderback.png' width='100%' alt=''>"
-                                                                                                    + "</div>"
-                                                                                                    + "<div class='row'>"
-                                                                                                        + "<div class='col-md-12'>"
-                                                                                                            + "<div class='field mt-4'>"
-                                                                                                                + "<p style='font-size: 13px; text-align: center;'><b>FOR MOTORCYCLE AND TRICYCLE <br> THE BEARER OF THIS CARD IS HEREBY AUTHORIZED TO OPERATE AS A RIDER IN EDO STATE</b></p>"
-                                                                                                                
-                                                                                                                + imgBarCode                                                                                                            
-                                                                                                            + "</div>"
-                                                                                                        + "</div>"
-                                                                                                    + "</div>"
-
-                                                                                                    + "<div class='row' style='margin-top: 56px; margin-bottom: 10px; xxposition: fixed; xxbottom: 0px; wxxidth: 100%;'>"
-                                                                                                        + "<div class='col-md-8'>"
-                                                                                                            + "<div class='field mt-4' style='font-size: 13px;'>"
-                                                                                                                + "<span><b>THIS CARD CANNOT BE TRANSFERRED, IF FOUND PLEASE RETURN TO</b></span>"
-                                                                                                                + "<br>"
-                                                                                                                + "<span><b>EDO STATE MINISTRY OF TRANSPORT</b></span>"
-                                                                                                                + "<span><b>OR THE NEAREST POLICE STATION</b></span>"
-                                                                                                                + "<br>"
-                                                                                                                + "<span><b>MISUSE OF THIS PERMIT IS A VIOLATION OF EDO STATE GOVERNMENT <br> REGUALTIONS.</b></span>"
-                                                                                                                + "<br>"
-                                                                                                                + "<span><b>REPLACEMENT OF THIS LICENSE IS SUBJECT TO AN ADMINISTRATIVE FEE</b></span>"
-                                                                                                            + "</div>"
-                                                                                                        + "</div>"
-                                                                                                        
-                                                                                                    + "</div>                                                                                                        "
-                                                                                                + "</div>"
-                                                                                            + "</div>"
-                                                                                        + "</div>"
-                                                                                    + "</div>"
-                                                                                + "</div>"
-                                                                            + "</div>"
-                                                                        + "</div>"
-                                                                    + "</div>"
-                                                                    
-                                                                + "</div>"
-                                                                + "<div class='modal-footer'>"
-                                                                    + "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>"
-                                                                    
-                                                                    + "<button onclick='printCard('backcard', 'Moshood_back');' type='button' class='btn btn-danger'>Print</button>"
-                                                                + "</div>"
-                                                            + "</div>"
-                                                        + "</div>"
-                                                    + "</div>"
-                                                + "</td>";
-                    cell10.appendChild(printareatd);
-
-                    tableRef.appendChild(table_row);
-
-                    // tableRef.appendChild(table_row);
-
-                    // // Insert a row in the table at the last row
-                    // var newRow   = tableRef.insertRow();
-
-                    // // Insert a cell in the row at index 0
-                    // var newCell1  = newRow.insertCell(0);
-
-                    //     // Append a text node to the cell
-                    //     var sn  = document.createTextNode(serialno);
-                    //     newCell1.appendChild(sn);
-
-                    //  // Insert a cell in the row at index 1
-                    //  var newCell2  = newRow.insertCell(1);
-
-                    //     // Append a text node to the cell
-                    //     var name  = document.createTextNode(data[i].nameonlicence);
-                    //     newCell2.appendChild(name);
-
-                    //  // Insert a cell in the row at index 2
-                    //  var newCell3  = newRow.insertCell(2);
-
-                    //     // Append a text node to the cell
-                    //     var licence  = document.createTextNode(data[i].licenceno);
-                    //     newCell3.appendChild(licence);
-
-                    //  // Insert a cell in the row at index 3
-                    //  var newCell4  = newRow.insertCell(3);
-
-                    //     // Append a text node to the cell
-                    //     //<div class="badge badge-primary" name="jnumber">
-                    //     //<a href="#" id="inline-firstname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter Jacket Number"></a></div>
-                                               
-                    //     var jnumber_link = document.createElement("a");
-                    //     jnumber_link.setAttribute("href", "#");
-                    //     jnumber_link.setAttribute("id", "inline-firstname");
-                    //     jnumber_link.setAttribute("data-type", "text");
-                    //     jnumber_link.setAttribute("data-pk", "1");
-                    //     jnumber_link.setAttribute("data-placement", "right");
-                    //     jnumber_link.setAttribute("data-placeholder", "Required");
-                    //     jnumber_link.setAttribute("data-title", "Enter Jacket Number");
-
-                    //     var jnumber = document.createElement("div");
-                    //     jnumber.setAttribute("class", "badge badge-primary");
-                    //     jnumber.setAttribute("name", "jnumber");
-
-                    //     jnumber.appendChild(jnumber_link);
-                    //     // var jnumber  = document.createTextNode("");
-                    //     newCell4.appendChild(jnumber);
-
-                    //      // Insert a cell in the row at index 4
-                    // var newCell5  = newRow.insertCell(4);
-
-                    //     // Append a text node to the cell
-                    //     var phone  = document.createTextNode(data[i].riderstelephoneno);
-                    //     newCell5.appendChild(phone);
-
-                    //      // Insert a cell in the row at index 5
-                    // var newCell6  = newRow.insertCell(5);
-
-                    //     // Append a text node to the cell
-                    //     var sex  = document.createTextNode(data[i].ridersgender);
-                    //     newCell6.appendChild(sex);
-
-                    //      // Insert a cell in the row at index 6
-                    // var newCell7  = newRow.insertCell(6);
-
-                    //     // Append a text node to the cell
-                    //     // var bgroup  = document.createTextNode(data[i].bloodgroup);
-                    //     var bgroup  = document.createTextNode(data[i].bloodgroup);
-                    //     newCell7.appendChild(bgroup);
-
-                    //      // Insert a cell in the row at index 7
-                    // var newCell8  = newRow.insertCell(7);
-
-                    //     // Append a text node to the cell
-                    //     var kin  = document.createTextNode(data[i].next_of_kin);
-                    //     newCell8.appendChild(kin);
-
-                    //           // Insert a cell in the row at index 7
-                    // var newCell9  = newRow.insertCell(8);
-
-                    //     // Append a text node to the cell
-                    //     var ad  = document.createTextNode(data[i].ridersaddress);
-                    //     newCell9.appendChild(ad);
+                    +'</div></div></div></div></div></div></div></div></div>'
+                    +'<div class="modal-footer">'
+                    +'<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+                    +'<button onclick="printCard(\'backcard\', \'Moshood_back\');" type="button" class="btn btn-danger">Print</button>'
+                    +'</div></div></div></div>'
+                    +'</td>'
+                    +'</tr>'
                 }
+
+                document.getElementById('tbody').innerHTML = dataField;
+
+
+                $('.inline-jacket-number').editable({
+                    validate: function (value) {
+                        if ($.trim(value) == '') return 'This field is required';
+                    },
+                    mode: 'inline',
+                    inputclass: 'form-control-sm'
+                });
             }
            
            function getDate(dateString){
